@@ -100,6 +100,9 @@ modified_filter = {col: filters[col]['modified'] for col in data.columns[:-3]}
 df_reference = data.loc[(data[list(reference_filter)] == pd.Series(reference_filter)).all(axis=1)]
 df_modified = data.loc[(data[list(modified_filter)] == pd.Series(modified_filter)).all(axis=1)]
 
+# if reference and modified have the same values, display a warning
+if df_reference.equals(df_modified):
+    st.warning("Reference and modified pipelines are the same. Please select different preprocessing steps.")
 
 # Ensure there are values to compare
 if not df_reference.empty and not df_modified.empty:
