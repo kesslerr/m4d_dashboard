@@ -22,7 +22,7 @@ change_colors = { # red negative, blue positive
 #dtype_mapping = {col: str for col in data_columns if col != "performance"}
 
 # Read the CSV with the specified data types
-data_both = pd.read_csv("./streamlit/performances.csv", #dtype=dtype_mapping, 
+data_both = pd.read_csv("./performances.csv", #dtype=dtype_mapping, 
                         na_values=[], keep_default_na=False) # avoid "None" to be converted to NA
 
 #st.title("Comparison of decoding performance between two preprocessing pipelines")
