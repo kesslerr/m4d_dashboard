@@ -148,7 +148,7 @@ if not df_reference.empty and not df_modified.empty:
         The change in performance, i.e., 
         $ p_{mod} - p_{ref} $, where $p_{mod}$ is the performance of the modified pipeline and $p_{ref}$ is the performance of the reference pipeline.
         Green bars indicate higher performance for the modified pipeline, 
-        Red bars indicate lower performance for the modified pipeline. 
+        red bars indicate lower performance for the modified pipeline. 
         Performance is either accuracy or *T*-sum, depending on the selected decoding model.
     """)
     change_data = pd.DataFrame({
