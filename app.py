@@ -154,7 +154,7 @@ if not df_reference.empty and not df_modified.empty:
     change_data['Direction'] = change_data['Performance change'].apply(lambda x: 'Positive' if x > 0 else 'Negative')
     plt.figure(figsize=(10, 4))
     sns.barplot(x='Experiment', y='Performance change', data=change_data, hue="Direction", palette=change_colors)
-    plt.title("Performance changes between reference and modified pipelines")
+    #plt.title("Performance changes between reference and modified pipelines")
     plt.axhline(0., color='k', linestyle='-')
     plt.legend().remove()
     st.pyplot(plt.gcf())
