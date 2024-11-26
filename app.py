@@ -33,13 +33,13 @@ st.markdown("""Kessler et al., 2024:<br>
             - GitHub repository [https://github.com/kesslerr/m4d](https://github.com/kesslerr/m4d)""", unsafe_allow_html=True)
 
 st.markdown("""
-        This dashboard serves to interactively explore the impact of different preprocessing steps on decoding performance.
-        The decoding performances are operationalized via accuracy for EEGNet, or via *T*-sum for time-resolved logistic regressions. 
-        Choose a reference pipeline and a modified pipeline from the dropdown menu (left) to see the difference in decoding performance.
+        This dashboard is designed to interactively explore the impact of different preprocessing steps on decoding performance. 
+        Decoding performance is operationalised in terms of accuracy for EEGNet, or via *T*-sum for time-resolved logistic regressions. 
+        Select a reference pipeline and a modified pipeline from the drop-down menu (left) to see the difference in decoding performance.
         
-        The purpose of this dashboard is plain exploration, not for recommending a particular preprocessing pipeline. 
-        Bear in mind, that maximizing decoding performance may not be what you want, 
-        as it comes with limitations in feature interpretability [see Kessler et al. 2024](https://doi.org/10.48550/arXiv.2410.14453).  
+        The purpose of this dashboard is simply to explore, not to recommend a particular preprocessing pipeline. 
+        Note that maximising decoding performance may not be what you want, 
+        as it comes with limitations on feature interpretability [see Kessler et al. 2024](https://doi.org/10.48550/arXiv.2410.14453).  
         """)
 
 # Create sidebar widgets for "reference" and "modified" filters
@@ -101,7 +101,7 @@ df_reference = data.loc[(data[list(reference_filter)] == pd.Series(reference_fil
 df_modified = data.loc[(data[list(modified_filter)] == pd.Series(modified_filter)).all(axis=1)]
 
 # if reference and modified have the same values, display a warning
-if df_reference.equals(df_modified):
+if reference_filter == modified_filter:
     st.warning("Reference and modified pipelines are the same. Please select different preprocessing steps.")
 
 # Ensure there are values to compare
@@ -117,8 +117,9 @@ if not df_reference.empty and not df_modified.empty:
     })
 
     st.subheader("Performance comparison")
-    st.text(f"""The absolute performance for reference and modified pipeline are illustrated for each experiment. 
-        The violin plot shows the distribution of performances for all tested pipelines.""")
+    st.markdown(f"""The absolute performance for the reference and modified pipelines is illustrated for each experiment.
+            For accuracy, the average across participants was calculated, whereas the *T*-Sums were already computed across participants. 
+        The violin plot shows the distribution of performance for all pipelines tested.""")
     #sns.barplot(x='Type', y='Accuracy', data=plot_data, palette=custom_colors) #palette="viridis")
     #plot_data.plot(x = "Type", y="Accuracy", kind='bar', stacked=True, color=sns.color_palette("tab10"), figsize=(8, 6)) #color=custom_colors, 
     plt.figure(figsize=(10, 4))
@@ -130,7 +131,7 @@ if not df_reference.empty and not df_modified.empty:
         data=data,  # Use your violin plot DataFrame
         inner=None,  # Removes inner markers to avoid clutter
         color="lightgray",  # Base color for the violin plot
-        scale="width"  # Optional: Adjusts violin width proportional to sample size # TODO check
+        density_norm='width'
     )
     
     sns.scatterplot(x='Experiment', y="Performance", data=plot_data, hue='Pipeline', palette=custom_colors)
@@ -144,10 +145,11 @@ if not df_reference.empty and not df_modified.empty:
     # barplot of changes
     st.subheader("Performance changes")
     st.markdown(r"""
-        The difference in performance, i.e., 
+        The change in performance, i.e., 
         $ p_{mod} - p_{ref} $, where $p_{mod}$ is the performance of the modified pipeline and $p_{ref}$ is the performance of the reference pipeline.
         Green bars indicate higher performance for the modified pipeline, 
-        red bars indicate lower performance of the modified pipeline. Performance is either accuracy or *T*-sum, depending on the selected decoding model.
+        Red bars indicate lower performance for the modified pipeline. 
+        Performance is either accuracy or *T*-sum, depending on the selected decoding model.
     """)
     change_data = pd.DataFrame({
         'Experiment': df_reference['experiment'].values,
