@@ -28,9 +28,12 @@ data_both = pd.read_csv("./performances.csv", #dtype=dtype_mapping,
 
 #st.title("How EEG preprocessing shapes decoding performance")
 st.subheader("How EEG preprocessing shapes decoding performance")
-st.markdown("""Kessler et al., 2024:<br>
+st.markdown("""Kessler et al., 2025:<br>
+            - Article: [Download from Communications Biology](https://rdcu.be/evH5m)<br>
+            - [Supplementary Information](https://static-content.springer.com/esm/art%3A10.1038%2Fs42003-025-08464-3/MediaObjects/42003_2025_8464_MOESM2_ESM.pdf)<br>
             - Preprint: [doi.org/10.48550/arXiv.2410.14453](https://doi.org/10.48550/arXiv.2410.14453)<br>
-            - GitHub repository [https://github.com/kesslerr/m4d](https://github.com/kesslerr/m4d)""", unsafe_allow_html=True)
+            - GitHub repository [https://github.com/kesslerr/m4d](https://github.com/kesslerr/m4d)<br>
+            - Zenodo repository (large result files) [https://zenodo.org/records/14223514](https://zenodo.org/records/14223514)""", unsafe_allow_html=True)
 
 st.markdown("""
         This dashboard is designed to interactively explore the impact of different preprocessing steps on decoding performance. 
@@ -39,7 +42,8 @@ st.markdown("""
         
         The purpose of this dashboard is simply to explore, not to recommend a particular preprocessing pipeline. 
         Note that maximising decoding performance may not be what you want, 
-        as it comes with limitations on feature interpretability [see Kessler et al. 2024](https://doi.org/10.48550/arXiv.2410.14453).  
+        as it comes with limitations on feature interpretability [see Kessler et al. 2025](https://rdcu.be/evH5).
+        Also have a look into the [supplementary material](https://static-content.springer.com/esm/art%3A10.1038%2Fs42003-025-08464-3/MediaObjects/42003_2025_8464_MOESM2_ESM.pdf) for additional analyses.
         """)
 
 # Create sidebar widgets for "reference" and "modified" filters
